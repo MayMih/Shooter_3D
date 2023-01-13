@@ -9,12 +9,16 @@ public class PlayerCamera : MonoBehaviour
 	public float sensitivity = 5f; // чувствительность мыши
 	public Camera mainCamera;
 
-	private Vector3 direction;
+	private CrossHair crossHairScript;
+    private SkinLoader skinLoader;
+
     //private List<int> swappedIndices = new List<int>(WORKER_TAG_NAMES.Length);
 
     private void Start()
-	{		
-	}
+	{
+        crossHairScript = GetComponent<CrossHair>();
+        skinLoader = GameObject.FindObjectOfType<SkinLoader>();
+    }
 
     private void Update()
 	{
@@ -45,13 +49,18 @@ public class PlayerCamera : MonoBehaviour
         mainCamera.transform.localEulerAngles = new Vector3(rotY,	Mathf.Max(MIN_HORIZONTAL_ANGLE, 
             Mathf.Min(rotX, MAX_HORIZONTAL_ANGLE), 0));
         // по нажатию Пробела или ЛКМ стреляем
-        if (Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0))
-		{
-			Shoot(mainCamera.ScreenToWorldPoint(Input.mousePosition));			
-		}
-		else if (Input.GetKeyUp(KeyCode.Escape))
-		{
-			Debug.LogWarning("App exit requested");
+        //if ()
+        //{
+        //    Shoot(mainCamera.ScreenToWorldPoint(Input.mousePosition));
+        //}
+        // по нажатию ПКМ меняем вид прицела
+        if (Input.GetMouseButtonUp(1))
+        {
+            crossHairScript.skin = skinLoader.GetRandomSkin();
+        }
+        else if (Input.GetKeyUp(KeyCode.Escape))
+        {
+            Debug.LogWarning("App exit requested");
             Application.Quit();
         }
 	}

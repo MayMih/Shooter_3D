@@ -13,8 +13,10 @@ public class CrossHair : MonoBehaviour
 { 
     public Texture2D skin; 
     
+    [SerializeField] private int size = 21;
+    
     public void OnGUI() 
     { 
-        GUI.DrawTexture(new Rect(Screen.width / 2, Screen.height / 2, 40, 40), skin); 
+        GUI.DrawTexture(new Rect(Screen.width / 2, Screen.height / 2, size, size), skin); 
     } 
 }
