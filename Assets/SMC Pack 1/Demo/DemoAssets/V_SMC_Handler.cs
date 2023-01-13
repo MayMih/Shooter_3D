@@ -26,7 +26,8 @@ namespace Visyde{
 			GetComponent<Image> ().sprite = crossHairs [curCrossHair];
 		}
 
-		public void ChangeColor (Color color){
+		public void ChangeColor (Color color)
+		{
 			this.GetComponent<Image> ().color = color;
 		}
 	}

@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 /// <summary>
 /// Совсем простенький  скрипт прицел:
@@ -18,5 +19,7 @@ public class CrossHair : MonoBehaviour
     public void OnGUI() 
     { 
         GUI.DrawTexture(new Rect(Screen.width / 2, Screen.height / 2, size, size), skin); 
-    } 
+    }
+
+
 }

@@ -70,7 +70,7 @@ public class Flaregun : MonoBehaviour {
 			
 		bulletInstance.AddForce(barrelEnd.forward * bulletSpeed); //ADDING FORWARD FORCE TO THE FLARE PROJECTILE
         //INSTANTIATING THE GUN'S MUZZLE SPARKS				
-        //Instantiate(muzzleParticles, barrelEnd.position,barrelEnd.rotation);
+        Instantiate(muzzleParticles, barrelEnd.position,barrelEnd.rotation);
         Reload();
 	}
 	

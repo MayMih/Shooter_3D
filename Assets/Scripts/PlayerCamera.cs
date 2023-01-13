@@ -9,9 +9,12 @@ public class PlayerCamera : MonoBehaviour
 	public float sensitivity = 5f; // чувствительность мыши
 	public Camera mainCamera;
 
+    [SerializeField] private GameObject enemyTagHolder;
+
 	private CrossHair crossHairScript;
     private SkinLoader skinLoader;
-
+    private Color[] fireColors = { Color.green, Color.blue, Color.white, Color.red, Color.cyan, Color.magenta };
+ 
     //private List<int> swappedIndices = new List<int>(WORKER_TAG_NAMES.Length);
 
     private void Start()
@@ -23,8 +26,21 @@ public class PlayerCamera : MonoBehaviour
     private void Update()
 	{
 		Rotate();
-	}
+        // по нажатию ПКМ меняем вид прицела
+        if (Input.GetMouseButtonUp(1))
+        {
+            crossHairScript.skin = skinLoader.GetRandomSkin();
+        }
+        else if (Input.GetKeyUp(KeyCode.Escape))
+        {
+            Debug.LogWarning("App exit requested");
+            Application.Quit();
+        }
+    }
 
+    /// <summary>
+    /// Метод вращения камеры
+    /// </summary>
     private void Rotate()
 	{
         const int MIN_VERTICAL_ANGLE = 20;
@@ -48,25 +64,6 @@ public class PlayerCamera : MonoBehaviour
         }
         mainCamera.transform.localEulerAngles = new Vector3(rotY,	Mathf.Max(MIN_HORIZONTAL_ANGLE, 
             Mathf.Min(rotX, MAX_HORIZONTAL_ANGLE), 0));
-        // по нажатию Пробела или ЛКМ стреляем
-        //if ()
-        //{
-        //    Shoot(mainCamera.ScreenToWorldPoint(Input.mousePosition));
-        //}
-        // по нажатию ПКМ меняем вид прицела
-        if (Input.GetMouseButtonUp(1))
-        {
-            crossHairScript.skin = skinLoader.GetRandomSkin();
-        }
-        else if (Input.GetKeyUp(KeyCode.Escape))
-        {
-            Debug.LogWarning("App exit requested");
-            Application.Quit();
-        }
 	}
 
-    private void Shoot(Vector3 aim)
-    {
-		Debug.Log($"Trying to shoot at world point {aim}");
-    }
 }
