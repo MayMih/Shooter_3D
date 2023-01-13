@@ -15,7 +15,6 @@ public class PlayerCamera : MonoBehaviour
     private SkinLoader skinLoader;
     private Color[] fireColors = { Color.green, Color.blue, Color.white, Color.red, Color.cyan, Color.magenta };
  
-    //private List<int> swappedIndices = new List<int>(WORKER_TAG_NAMES.Length);
 
     private void Start()
 	{
