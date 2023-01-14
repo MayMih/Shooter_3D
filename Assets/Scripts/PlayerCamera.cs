@@ -1,9 +1,9 @@
+using System.IO.Pipes;
+
 using UnityEngine;
 
 public class PlayerCamera : MonoBehaviour
 {
-	//private static readonly string[] WORKER_TAG_NAMES = { "Farmer", "Builder", "Miner", "Gatherer", "Fisher" };
-
 	public float speed = 1.5f;
 	public float acceleration = 10f;
 	public float sensitivity = 5f; // чувствительность мыши
@@ -13,17 +13,23 @@ public class PlayerCamera : MonoBehaviour
 
 	private CrossHair crossHairScript;
     private SkinLoader skinLoader;
-    private bool isCursorLocked = true;
+
+    private bool IsCursorLocked
+    {
+        get => Cursor.lockState == CursorLockMode.Locked;
+        set => Cursor.lockState = value ? CursorLockMode.Locked : CursorLockMode.None;
+    }
 
     private void Start()
 	{
         crossHairScript = GetComponent<CrossHair>();
         skinLoader = GameObject.FindObjectOfType<SkinLoader>();
+        IsCursorLocked = true; 
     }
 
     private void Update()
 	{
-        if (isCursorLocked)
+        if (IsCursorLocked)
         {
             Rotate();
         }
@@ -39,8 +45,13 @@ public class PlayerCamera : MonoBehaviour
         else if (Input.GetKeyUp(KeyCode.Escape))
         {
             Debug.LogWarning("App exit requested");
-            this.isCursorLocked = false;
+            Cursor.lockState = CursorLockMode.None;
+            this.IsCursorLocked = false;
             Application.Quit();
+        }
+        else if (!IsCursorLocked && Input.anyKey)
+        {
+            IsCursorLocked = true;
         }
     }
 

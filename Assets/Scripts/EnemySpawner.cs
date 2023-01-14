@@ -51,7 +51,8 @@ public class EnemySpawner : MonoBehaviour
         var filter = new ContactFilter2D();
         filter.SetLayerMask(obstaclesLayerSource);
         RaycastHit hitInfo;
-        Physics.Raycast(obj.transform.position, Vector3.down, out hitInfo);
+        Physics.Raycast(obj.transform.position, -obj.transform.up, out hitInfo);
+        Debug.DrawRay(obj.transform.position, -obj.transform.up, Color.red, 99);
         //if (hitInfo.collider.CompareTag(groundTagSource.tag) && hitInfo.distance > MIN_DISTANCE_TO_GROUND)
         if (hitInfo.distance > 0)
         {
