@@ -287,7 +287,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7848397493377104986}
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0, y: -1e-17, z: 1.4901161e-10}
+  m_LocalPosition: {x: -0, y: 0.03, z: 1.4901161e-10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1022,8 +1022,9 @@ GameObject:
   m_Component:
   - component: {fileID: 7848397493806695768}
   - component: {fileID: 7848397493806695769}
-  - component: {fileID: 7838593550350075879}
-  - component: {fileID: -6589063528623190303}
+  - component: {fileID: -6168531654791281504}
+  - component: {fileID: -1391221487510617002}
+  - component: {fileID: 7851581073187477136}
   m_Layer: 0
   m_Name: VillagerFisherman
   m_TagString: Respawn
@@ -1069,7 +1070,7 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
---- !u!64 &7838593550350075879
+--- !u!64 &-6168531654791281504
 MeshCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1083,7 +1084,7 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 4300002, guid: 1ae73c895084f05408cd49ec3da3cd88, type: 3}
---- !u!114 &-6589063528623190303
+--- !u!114 &-1391221487510617002
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1096,6 +1097,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bulletPrefab: {fileID: 100002, guid: 502f397bde12655448ff152eac00cdc7, type: 3}
+--- !u!136 &7851581073187477136
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7848397493806695775}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.7088793
+  m_Height: 2.0827236
+  m_Direction: 1
+  m_Center: {x: -0.2088793, y: 0.8542795, z: 0}
 --- !u!1 &7848397493857184397
 GameObject:
   m_ObjectHideFlags: 0
@@ -2451,6 +2466,10 @@ PrefabInstance:
     - target: {fileID: 1871937558990367418, guid: 422c6cc9382646440b6c952fd1da4bb2, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 175.53801
+      objectReference: {fileID: 0}
+    - target: {fileID: 1925667069729657020, guid: 422c6cc9382646440b6c952fd1da4bb2, type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 422c6cc9382646440b6c952fd1da4bb2, type: 3}

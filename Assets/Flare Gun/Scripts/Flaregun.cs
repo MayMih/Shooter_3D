@@ -29,7 +29,7 @@ public class Flaregun : MonoBehaviour {
 	{		
 		if (!anim?.isPlaying ?? true)
 		{
-			if (Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0)) 							
+			if (Input.GetMouseButtonDown(0)) 							
 			{
 				if (currentRound > 0)
 				{

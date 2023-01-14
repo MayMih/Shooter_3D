@@ -13,8 +13,7 @@ public class PlayerCamera : MonoBehaviour
 
 	private CrossHair crossHairScript;
     private SkinLoader skinLoader;
-    private Color[] fireColors = { Color.green, Color.blue, Color.white, Color.red, Color.cyan, Color.magenta };
- 
+    private bool isCursorLocked = true;
 
     private void Start()
 	{
@@ -24,15 +23,23 @@ public class PlayerCamera : MonoBehaviour
 
     private void Update()
 	{
-		Rotate();
+        if (isCursorLocked)
+        {
+            Rotate();
+        }
+        if (Debug.isDebugBuild && Input.GetKeyUp(KeyCode.Space))
+        {
+            GameObject.FindObjectOfType<EnemySpawner>()?.SpawnRandomEnemy();
+        }
         // по нажатию ПКМ меняем вид прицела
-        if (Input.GetMouseButtonUp(1))
+        else if (Input.GetMouseButtonUp(1))
         {
             crossHairScript.skin = skinLoader.GetRandomSkin();
         }
         else if (Input.GetKeyUp(KeyCode.Escape))
         {
             Debug.LogWarning("App exit requested");
+            this.isCursorLocked = false;
             Application.Quit();
         }
     }
