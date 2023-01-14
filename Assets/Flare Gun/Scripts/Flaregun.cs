@@ -13,7 +13,7 @@ public class Flaregun : MonoBehaviour {
 	public int spareRounds = 999;
 	public int currentRound = 1;
 
-	[SerializeField] private bool autoReload = true;
+	public bool autoReload = true;
 
 	private Animation anim;
 	private AudioSource player;
