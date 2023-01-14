@@ -8409,11 +8409,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 04c07f387774dbf4686e5cec9dc073f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 5
-  acceleration: 1.96
-  sensitivity: 5
+  sensitivity: 3
   mainCamera: {fileID: 674816978}
-  enemyTagHolder: {fileID: 5908927168535876971, guid: 555aa49bf42b4234ca87d96f604338bd, type: 3}
 --- !u!4 &965809337
 Transform:
   m_ObjectHideFlags: 0

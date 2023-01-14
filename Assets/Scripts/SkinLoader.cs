@@ -12,7 +12,6 @@ public class SkinLoader : MonoBehaviour
         return skins[Random.Range(0, skins.Length)];
     }
 
-    // Start is called before the first frame update
     private void Awake()
     {
         skins = Resources.LoadAll<Texture2D>(resourceFolderPath);

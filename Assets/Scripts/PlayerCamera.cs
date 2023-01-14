@@ -1,15 +1,11 @@
-using System.IO.Pipes;
-
 using UnityEngine;
 
 public class PlayerCamera : MonoBehaviour
 {
-	public float speed = 1.5f;
-	public float acceleration = 10f;
-	public float sensitivity = 5f; // чувствительность мыши
-	public Camera mainCamera;
-
-    [SerializeField] private GameObject enemyTagHolder;
+    // чувствительность мыши
+    [SerializeField] private float sensitivity = 3f; 
+	
+    public Camera mainCamera;
 
 	private CrossHair crossHairScript;
     private SkinLoader skinLoader;

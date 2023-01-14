@@ -1,12 +1,10 @@
+using System.Linq;
+
 using Assets.Scripts;
 
 using TMPro;
 
 using UnityEngine;
-
-using System.Linq;
-using System.Collections.Generic;
-using System;
 
 /// <summary>
 /// Класс-обработчик игрового меню
