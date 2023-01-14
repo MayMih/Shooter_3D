@@ -22,6 +22,7 @@ public class TopUIHandler : MonoBehaviour
     private void OnEnable()
     {
         currentTime = maxGameTime;
+        Camera.main.gameObject.GetComponent<AudioSource>()?.Stop();
     }
 
     // Update is called once per frame
@@ -39,7 +40,9 @@ public class TopUIHandler : MonoBehaviour
             generalUIScript.endPanel.SetActive(true);
             totalScoreText.text = generalUIScript?.currentScore.ToString();
             Cursor.lockState = CursorLockMode.None;
-            generalUIScript.DisableAll();
+            generalUIScript?.DisableAll();
+            generalUIScript.IsGameOver = true;
+            Camera.main.gameObject.GetComponent<AudioSource>()?.Play();
         }
     }
 }

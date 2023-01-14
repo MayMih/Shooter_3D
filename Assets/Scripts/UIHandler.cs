@@ -1,6 +1,12 @@
+using Assets.Scripts;
+
 using TMPro;
 
 using UnityEngine;
+
+using System.Linq;
+using System.Collections.Generic;
+using System;
 
 /// <summary>
 /// Класс-обработчик игрового меню
@@ -18,7 +24,25 @@ public class UIHandler : MonoBehaviour
     private CrossHair crossHairScript;
     private Flaregun flaregunScript;
 
+    private bool isGameOver = false;
+
     public int currentScore = 0;
+
+    /// <summary>
+    /// Признак окончания игры
+    /// </summary>
+    /// <remarks>
+    /// При установке в True уничтожает всех врагов
+    /// </remarks>
+    public bool IsGameOver 
+    { 
+        get => isGameOver; 
+        set
+        {
+            isGameOver = value;
+            GameObject.FindObjectsOfType<TargetController>()?.ToList().ForEach(obj => Destroy(obj));
+        }
+    }
 
     private void Awake()
     {
@@ -34,28 +58,29 @@ public class UIHandler : MonoBehaviour
     }
 
     public void DisableAll()
-    {        
-        playerCameraScript.enabled = enemySpawnerScript.enabled = crossHairScript.enabled = false;
+    {
+        playerCameraScript.enabled = crossHairScript.enabled = false;
         flaregunScript.currentRound = 0;
         flaregunScript.autoReload = false;
-        topPanel.SetActive(false);
+        topPanel.SetActive(false);        
     }
 
     public void EnableAll()
     {        
-        playerCameraScript.enabled = enemySpawnerScript.enabled = crossHairScript.enabled = true;
+        playerCameraScript.enabled = crossHairScript.enabled = true;
         flaregunScript.currentRound = 1;
         flaregunScript.autoReload = true;
         topPanel.SetActive(true);
+        enemySpawnerScript.Begin();
     }
 
     public void Restart()
     {
         DisableAll();
+        currentScore = 0;
         endPanel.SetActive(false);
         startPanel.SetActive(true);
-        //scoreText.text = "0";
-        //timerText.text = TimeSpan.FromSeconds(maxGameTime).ToString("mm\\:ss\\:f"); ;
+        isGameOver = false;
     }
 
     public void UpdateTopTimer(string value)
@@ -63,4 +88,16 @@ public class UIHandler : MonoBehaviour
         timerText.text = value;
     }
 
+    internal void AddOnePoint()
+    {
+        currentScore++;
+    }
+
+    internal void RemoveOnePoint()
+    {
+        if (currentScore > 0)
+        {
+            currentScore--;
+        }
+    }
 }

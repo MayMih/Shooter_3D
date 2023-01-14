@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 
 using Assets.Scripts;
 
@@ -14,33 +13,43 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField] float spawnDelay = 0.5f;
     [Header("Время показа врага (в секундах)")]
     [SerializeField] float enemyLifeTime = 2;
-
     [SerializeField] GameObject[] prefabsToSpawn;
     [SerializeField] LayerMask obstaclesLayerSource;
+    
+    public AudioClip enemySelfDestructSound;
+    public AudioClip enemyRespawnSound;
 
     private BoxCollider selfCollider;
+    private UIHandler uiHandlerScript;
+    
 
-    private void Start()
+    private void Awake()
     {
-        selfCollider = GetComponent<BoxCollider>();
+        uiHandlerScript = GameObject.FindObjectOfType<UIHandler>();
+        selfCollider = GetComponent<BoxCollider>();        
+    }
+
+    public void Begin()
+    {
         StartCoroutine(SpawnRandomEnemyRoutine());
     }
 
 
     private IEnumerator SpawnRandomEnemyRoutine()
     {        
-        while (true)
+        while (!uiHandlerScript.IsGameOver)
         {
             SpawnRandomEnemy();
             yield return new WaitForSeconds(spawnDelay);
         }
     }
 
+    /// <summary>
+    /// Метод генерации врага на случайной позиции внутри Куба-рождения
+    /// </summary>
     public void SpawnRandomEnemy()
     {
-        //const float MIN_DISTANCE_TO_GROUND = 0.1f;
         var enemyPrefab = prefabsToSpawn[UnityEngine.Random.Range(0, prefabsToSpawn.Length)];
-        //var enemyPrefab = prefabsToSpawn[0];
         var obj = Instantiate(enemyPrefab, transform);
         obj.transform.Rotate(Quaternion.AngleAxis(Random.Range(0, 360), Vector3.up).eulerAngles);
         // случайная позиция внутри куба-рождения
@@ -53,7 +62,6 @@ public class EnemySpawner : MonoBehaviour
         RaycastHit hitInfo;
         Physics.Raycast(obj.transform.position, -obj.transform.up, out hitInfo);
         Debug.DrawRay(obj.transform.position, -obj.transform.up, Color.red, 99);
-        //if (hitInfo.collider.CompareTag(groundTagSource.tag) && hitInfo.distance > MIN_DISTANCE_TO_GROUND)
         if (hitInfo.distance > 0)
         {
             var groundedPos = obj.transform.position;

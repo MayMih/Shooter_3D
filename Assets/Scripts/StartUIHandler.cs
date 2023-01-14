@@ -10,16 +10,22 @@ public class StartUIHandler : MonoBehaviour
     [SerializeField] private float secondsToStart = 3;
 
     private UIHandler generalUIScript;
+    private float maxSecondsToStart;
 
-    private void Start()
+    private void Awake()
     {
+        maxSecondsToStart = secondsToStart;
         generalUIScript = GameObject.FindObjectOfType<UIHandler>();
     }
 
     private void OnEnable()
     {
-        this.GetComponent<AudioSource>().loop = true;
+        Debug.Log("StartPanel enabled!");
+        var src = this.GetComponent<AudioSource>();
+        src.Play();
+        secondsToStart = maxSecondsToStart;
     }
+ 
 
     /// <summary>
     /// Метод обновления кадра самоотключается по достижении таймером 0
@@ -37,7 +43,8 @@ public class StartUIHandler : MonoBehaviour
         {
             secondsToStart = 0;
             generalUIScript.EnableAll();
-            this.GetComponent<AudioSource>().loop = false;
+            this.GetComponent<AudioSource>().Stop();
+            Debug.Log($"{gameObject} disabled!");
             gameObject.SetActive(false);
         }
     }
