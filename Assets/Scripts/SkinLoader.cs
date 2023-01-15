@@ -3,7 +3,7 @@ using UnityEngine;
 public class SkinLoader : MonoBehaviour
 {
     [Header("Каталог внутри каталога Assets\\Resources")]
-    [SerializeField] private string resourceFolderPath = "eggs";
+    [SerializeField] private string resourceFolderPath = "Crosshairs";
 
     private Texture2D[] skins;
 

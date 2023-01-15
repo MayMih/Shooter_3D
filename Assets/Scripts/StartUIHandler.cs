@@ -7,7 +7,7 @@ using UnityEngine;
 public class StartUIHandler : MonoBehaviour
 {
     [SerializeField] private TMP_Text startTimerText;
-    [SerializeField] private float secondsToStart = 3;
+    public float secondsToStart = 3;
 
     private UIHandler generalUIScript;
     private float maxSecondsToStart;

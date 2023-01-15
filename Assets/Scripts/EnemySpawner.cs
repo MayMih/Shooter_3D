@@ -14,7 +14,8 @@ public class EnemySpawner : MonoBehaviour
     [Header("¬рем€ показа врага (в секундах)")]
     [SerializeField] float enemyLifeTime = 2;
     [SerializeField] GameObject[] prefabsToSpawn;
-    [SerializeField] LayerMask obstaclesLayerSource;
+    // временно не используетс€, т.к. вроде бы не было замечено проваливание внутрь объектов
+    //[SerializeField] LayerMask obstaclesLayerSource;
     
     public AudioClip enemySelfDestructSound;
     public AudioClip enemyRespawnSound;
@@ -49,26 +50,35 @@ public class EnemySpawner : MonoBehaviour
     /// </summary>
     public void SpawnRandomEnemy()
     {
-        var enemyPrefab = prefabsToSpawn[UnityEngine.Random.Range(0, prefabsToSpawn.Length)];
-        var obj = Instantiate(enemyPrefab, transform);
-        obj.transform.Rotate(Quaternion.AngleAxis(Random.Range(0, 360), Vector3.up).eulerAngles);
+        var enemyPrefab = prefabsToSpawn[Random.Range(0, prefabsToSpawn.Length)];
+        var randRot = Quaternion.AngleAxis(Random.Range(0, 360), Vector3.up);
         // случайна€ позици€ внутри куба-рождени€
-        obj.transform.localPosition = new Vector3(Random.Range(-selfCollider.size.x / 2, selfCollider.size.x / 2),
+        var localRandPos = new Vector3(Random.Range(-selfCollider.size.x / 2, selfCollider.size.x / 2),
             -selfCollider.size.y / 2,
             Random.Range(-selfCollider.size.z / 2, selfCollider.size.z / 2)
         );
-        var filter = new ContactFilter2D();
-        filter.SetLayerMask(obstaclesLayerSource);
+        var globalRandPos = transform.TransformPoint(localRandPos);
+        var obj = Instantiate(enemyPrefab, globalRandPos, randRot);        
+        // временно не используетс€, т.к. вроде бы не было замечено проваливание внутрь объектов
+        //var filter = new ContactFilter2D();
+        //filter.SetLayerMask(obstaclesLayerSource);
         RaycastHit hitInfo;
         Physics.Raycast(obj.transform.position, -obj.transform.up, out hitInfo);
+        //
         Debug.DrawRay(obj.transform.position, -obj.transform.up, Color.red, 99);
+        //
         if (hitInfo.distance > 0)
-        {
-            var groundedPos = obj.transform.position;
-            groundedPos.y -= hitInfo.distance * 1.7f;
-            obj.transform.position = groundedPos;
+        {            
+            var landingPos = obj.transform.position;
+            landingPos.y -= hitInfo.distance;
+            obj.transform.position = landingPos;
+            Debug.Log($"New Enemy {obj} landed on {hitInfo.collider.name}");
         }
         //Debug.Log($"Trying to spawn enemy at {obj.transform.position}");
-        obj.GetComponent<TargetController>().LifeTime = enemyLifeTime;
+        var target = obj.GetComponent<TargetController>();
+        target.SoundPlayer = GetComponent<AudioSource>();
+        target.EnemyRespawnSound = enemyRespawnSound;
+        target.SelfDestructSound = enemySelfDestructSound;
+        target.LifeTime = enemyLifeTime;        
     }
 }

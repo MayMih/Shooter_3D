@@ -10,8 +10,10 @@ namespace Assets.Scripts
         private float lifeTime = 2;
         private UIHandler uiScript;
         private bool isSelfDescruction = true;
-        private AudioSource parentPlayer;
 
+        /// <summary>
+        /// Время (в секундах) до самоуничтожения объекта
+        /// </summary>
         public float LifeTime
         {
             get => lifeTime;
@@ -21,18 +23,42 @@ namespace Assets.Scripts
                 GameObject.Destroy(gameObject, lifeTime);
             }
         }
+        /// <summary>
+        /// Внешний проигрыватель звуковых эффектов
+        /// </summary>
+        public AudioSource SoundPlayer { get; set; }
+        /// <summary>
+        /// Звуковой эффект при появлении врага на сцене
+        /// </summary>
+        public AudioClip EnemyRespawnSound { get; set; }
+        /// <summary>
+        /// Звуковой эффект при появлении врага на сцене
+        /// </summary>
+        public AudioClip SelfDestructSound { get; set; }
 
-        private void Start()
+        /// <summary>
+        /// Эквивалент конструктора в Unity
+        /// </summary>
+        private void Awake()
         {
             uiScript = GameObject.FindObjectOfType<UIHandler>();
-            parentPlayer = gameObject.GetComponentInParent<AudioSource>();
-            parentPlayer?.PlayOneShot(gameObject.GetComponentInParent<EnemySpawner>().enemyRespawnSound);
         }
 
         /// <summary>
-        /// Обработчик события пробития врага на вылет - уничтожает пулю и врага
+        /// При появлении объекта проигрывает звук
+        /// </summary>
+        private void Start()
+        {            
+            SoundPlayer?.PlayOneShot(EnemyRespawnSound);               
+        }
+
+        /// <summary>
+        /// Обработчик события попадания "пули" во врага
         /// </summary>
         /// <param name="collision"></param>
+        /// <remarks>
+        /// Уничтожает пулю и врага
+        /// </remarks>
         private void OnCollisionEnter(Collision collision)
         {
             if (collision.gameObject.CompareTag(bulletPrefab.tag))
@@ -44,18 +70,21 @@ namespace Assets.Scripts
             }            
         }
 
+        /// <summary>
+        /// Обработчик уничтожения объекта - проигрывает звуки, а при самоуничтожении также вычитает очки у Игрока.
+        /// </summary>
         private void OnDestroy()
         {
             if (!uiScript.IsGameOver)
             {
                 if (isSelfDescruction)
                 {
-                    parentPlayer?.PlayOneShot(gameObject.GetComponentInParent<EnemySpawner>().enemySelfDestructSound);
+                    SoundPlayer?.PlayOneShot(SelfDestructSound);
                     uiScript.RemoveOnePoint();
                 }
                 else
                 {
-                    parentPlayer?.Play();
+                    SoundPlayer?.Play();
                 }
             }
         }

@@ -47,7 +47,12 @@ public class UIHandler : MonoBehaviour
         playerCameraScript = GameObject.FindObjectOfType<PlayerCamera>();
         enemySpawnerScript = GameObject.FindObjectOfType<EnemySpawner>();
         crossHairScript = GameObject.FindObjectOfType<CrossHair>();
-        flaregunScript = GameObject.FindObjectOfType<Flaregun>();        
+        flaregunScript = GameObject.FindObjectOfType<Flaregun>();
+        // в отладке не показываем стартовый экран
+        if (Debug.isDebugBuild)
+        {
+            startPanel.GetComponent<StartUIHandler>().secondsToStart = 0;
+        }
     }
 
     private void Start()
