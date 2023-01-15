@@ -67,7 +67,7 @@ public class Flaregun : MonoBehaviour {
 		Rigidbody bulletInstance;
 		//INSTANTIATING THE FLARE PROJECTILE
 		bulletInstance = Instantiate(flareBullet,barrelEnd.position,barrelEnd.rotation) as Rigidbody;
-		Debug.Log($"FireTime: {Time.time}");	
+		//Debug.Log($"FireTime: {Time.time}");	
 		bulletInstance.AddForce(barrelEnd.forward * bulletSpeed); //ADDING FORWARD FORCE TO THE FLARE PROJECTILE
         //INSTANTIATING THE GUN'S MUZZLE SPARKS				
         Instantiate(muzzleParticles, barrelEnd.position,barrelEnd.rotation);
