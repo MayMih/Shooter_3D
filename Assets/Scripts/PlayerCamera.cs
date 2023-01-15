@@ -2,8 +2,8 @@ using UnityEngine;
 
 public class PlayerCamera : MonoBehaviour
 {
-    // чувствительность мыши
-    [SerializeField] private float sensitivity = 3f; 
+    [Header("Чувствительность мыши (подобрана для WebGL)")]
+    [SerializeField] private float sensitivity = 2f; 
 	
     public Camera mainCamera;
 
@@ -20,7 +20,11 @@ public class PlayerCamera : MonoBehaviour
 	{
         crossHairScript = GetComponent<CrossHair>();
         skinLoader = GameObject.FindObjectOfType<SkinLoader>();
-        IsCursorLocked = true; 
+        IsCursorLocked = true;
+        if (Debug.isDebugBuild)
+        {
+            sensitivity = 3f;
+        }
     }
 
     private void Update()

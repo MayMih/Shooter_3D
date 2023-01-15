@@ -46,7 +46,7 @@ public class EnemySpawner : MonoBehaviour
     }
 
     /// <summary>
-    /// Метод генерации врага на случайной позиции внутри Куба-рождения
+    /// Метод генерации врага на случайной позиции относительно Куба-рождения
     /// </summary>
     public void SpawnRandomEnemy()
     {
@@ -72,7 +72,7 @@ public class EnemySpawner : MonoBehaviour
             var landingPos = obj.transform.position;
             landingPos.y -= hitInfo.distance;
             obj.transform.position = landingPos;
-            Debug.Log($"New Enemy {obj} landed on {hitInfo.collider.name}");
+            //Debug.Log($"New Enemy {obj} landed on {hitInfo.collider.name}");
         }
         //Debug.Log($"Trying to spawn enemy at {obj.transform.position}");
         var target = obj.GetComponent<TargetController>();
