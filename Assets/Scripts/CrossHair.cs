@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Linq;
 
 using UnityEngine;
 
@@ -53,9 +52,9 @@ public class CrossHair : MonoBehaviour
 
     internal void ChangeColor()
     {
-        Debug.Log($"Index Before: {crossIndex}");
+        //Debug.Log($"Index Before: {crossIndex}");
         crossIndex = crossIndex >= knownColors.Count - 1 ? 0 : crossIndex + 1;
-        Debug.Log($"Index After: {crossIndex}");
+        //Debug.Log($"Index After: {crossIndex}");
         colour = knownColors[crossIndex];
     }
 }
