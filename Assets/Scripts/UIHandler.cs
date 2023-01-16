@@ -20,7 +20,7 @@ public class UIHandler : MonoBehaviour
     private PlayerCamera playerCameraScript;
     private EnemySpawner enemySpawnerScript;
     private CrossHair crossHairScript;
-    private Flaregun flaregunScript;
+    private FlareGun flaregunScript;
 
     private bool isGameOver = false;
 
@@ -47,7 +47,7 @@ public class UIHandler : MonoBehaviour
         playerCameraScript = GameObject.FindObjectOfType<PlayerCamera>();
         enemySpawnerScript = GameObject.FindObjectOfType<EnemySpawner>();
         crossHairScript = GameObject.FindObjectOfType<CrossHair>();
-        flaregunScript = GameObject.FindObjectOfType<Flaregun>();
+        flaregunScript = GameObject.FindObjectOfType<FlareGun>();
         // в отладке не показываем стартовый экран
         if (Debug.isDebugBuild)
         {

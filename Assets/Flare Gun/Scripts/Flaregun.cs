@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class Flaregun : MonoBehaviour {
+public class FlareGun : MonoBehaviour {
 	
 	public Rigidbody flareBullet;
 	public Transform barrelEnd;
@@ -61,16 +61,15 @@ public class Flaregun : MonoBehaviour {
         }        
 		
 		anim?.CrossFade("Shoot");
-		player?.PlayOneShot(flareShotSound);
-		
+		player?.PlayOneShot(flareShotSound);		
 			
 		Rigidbody bulletInstance;
 		//INSTANTIATING THE FLARE PROJECTILE
 		bulletInstance = Instantiate(flareBullet,barrelEnd.position,barrelEnd.rotation) as Rigidbody;
-		//Debug.Log($"FireTime: {Time.time}");	
-		bulletInstance.AddForce(barrelEnd.forward * bulletSpeed); //ADDING FORWARD FORCE TO THE FLARE PROJECTILE
-        //INSTANTIATING THE GUN'S MUZZLE SPARKS				
-        Instantiate(muzzleParticles, barrelEnd.position,barrelEnd.rotation);
+        //ADDING FORWARD FORCE TO THE FLARE PROJECTILE
+        bulletInstance.AddForce(barrelEnd.forward * bulletSpeed);
+		//INSTANTIATING THE GUN'S MUZZLE SPARKS (with self destruction after 10 seconds)				
+		Destroy(Instantiate(muzzleParticles, barrelEnd.position,barrelEnd.rotation), 10);
         Reload();
 	}
 	

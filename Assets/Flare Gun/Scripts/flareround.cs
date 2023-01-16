@@ -3,14 +3,14 @@ using System.Collections;
 
 public class flareround : MonoBehaviour {
 	private GameObject flaregun;
-	private Flaregun flare;
+	private FlareGun flare;
 	public AudioClip pickupSound;	
 
 	// Use this for initialization
 	void Start () 
 	{
 		flaregun = GameObject.Find("flaregun");
-		flare = flaregun.GetComponent<Flaregun>();
+		flare = flaregun.GetComponent<FlareGun>();
 		
 	
 	}

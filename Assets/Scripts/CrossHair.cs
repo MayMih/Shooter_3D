@@ -1,4 +1,5 @@
-using System;
+using System.Collections.Generic;
+using System.Linq;
 
 using UnityEngine;
 
@@ -18,7 +19,20 @@ public class CrossHair : MonoBehaviour
     [SerializeField] private int size = 21;
     [SerializeField] private Color colour = Color.white;
 
-    private Color[] knownColors = { Color.blue, Color.gray, Color.green, Color.red, Color.cyan, Color.magenta, Color.white, Color.yellow };
+    private List<Color> knownColors = new List<Color>() { 
+        Color.blue, Color.green, Color.red, Color.cyan, Color.magenta, Color.white, Color.yellow 
+    };
+    private int crossIndex;
+
+
+    private void Awake()
+    {
+        if (!knownColors.Contains(colour))
+        {
+            knownColors.Add(colour);
+        }
+        crossIndex = knownColors.Count - 1;
+    }
 
     private void OnEnable()
     {
@@ -39,6 +53,9 @@ public class CrossHair : MonoBehaviour
 
     internal void ChangeColor()
     {
-        colour = knownColors[UnityEngine.Random.Range(0, knownColors.Length)];
+        Debug.Log($"Index Before: {crossIndex}");
+        crossIndex = crossIndex >= knownColors.Count - 1 ? 0 : crossIndex + 1;
+        Debug.Log($"Index After: {crossIndex}");
+        colour = knownColors[crossIndex];
     }
 }
