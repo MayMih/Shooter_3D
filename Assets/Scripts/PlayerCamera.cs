@@ -42,6 +42,10 @@ public class PlayerCamera : MonoBehaviour
         {
             crossHairScript.skin = skinLoader.GetRandomSkin();
         }
+        else if (Input.GetMouseButtonUp(2))
+        {
+            crossHairScript.ChangeColor();
+        }
         else if (Input.GetKeyUp(KeyCode.Escape))
         {
             Debug.LogWarning("App exit requested");
