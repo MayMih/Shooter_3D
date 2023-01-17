@@ -21,6 +21,7 @@ public class StartUIHandler : MonoBehaviour
     private void OnEnable()
     {
         Debug.Log("StartPanel enabled!");
+        Camera.main.gameObject.GetComponent<AudioSource>()?.Stop();
         var src = this.GetComponent<AudioSource>();
         src.Play();
         secondsToStart = maxSecondsToStart;

@@ -4,6 +4,9 @@ using TMPro;
 
 using UnityEngine;
 
+/// <summary>
+/// Класс верхней панели статуса Игры - отвечает за отображение текущего счёта
+/// </summary>
 public class TopUIHandler : MonoBehaviour
 {
     [Header("Макс. время игры в секундах")]
@@ -13,16 +16,18 @@ public class TopUIHandler : MonoBehaviour
 
     private UIHandler generalUIScript;
     private float currentTime;
+    private AudioSource mainCamAudio;
 
     private void Start()
     {
         generalUIScript = GameObject.FindObjectOfType<UIHandler>();
+        mainCamAudio = Camera.main.gameObject.GetComponent<AudioSource>();        
     }
 
     private void OnEnable()
     {
         currentTime = maxGameTime;
-        Camera.main.gameObject.GetComponent<AudioSource>()?.Stop();
+        mainCamAudio?.Stop();
     }
 
     // Update is called once per frame
@@ -36,13 +41,13 @@ public class TopUIHandler : MonoBehaviour
         }
         generalUIScript?.UpdateTopTimer(TimeSpan.FromSeconds(currentTime).ToString("mm\\:ss\\:f"));
         if (currentTime == 0)
-        {            
-            generalUIScript.endPanel.SetActive(true);
+        {
             totalScoreText.text = generalUIScript?.currentScore.ToString();
             Cursor.lockState = CursorLockMode.None;
             generalUIScript?.DisableAll();
             generalUIScript.IsGameOver = true;
-            Camera.main.gameObject.GetComponent<AudioSource>()?.Play();
+            generalUIScript.endPanel.SetActive(true);
+            mainCamAudio?.Play();
         }
     }
 }
